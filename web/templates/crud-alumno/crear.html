@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+
+<form method="POST">
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% csrf_token %}
+    <input type="text" name="nombre" placeholder="Nombre">
+    <input type="text" name="apellido" placeholder="Apellido">
+    <input type="text" name="email" placeholder="Email">
+    <input type="text" name="carrera" placeholder="Carrera">
+    <input type="text" name="semestre" placeholder="Semestre">
+    <button type="submit">
+        Agregar alumno
+    </button>
+</form>
+
+</body>
+</html>
