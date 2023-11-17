@@ -1,8 +1,21 @@
 from django.shortcuts import render, redirect
 from .models import Alumno, Materia
+from django.contrib.auth import login, authenticate
 
 
 def login(request):
+    if request.method == 'POST':
+        username, password = request.POST['username'], request.POST['password']
+        if username and password:
+            user = authenticate(
+                username=username,
+                password=password,
+            )
+            if user is not None:
+                login(request, user)
+                message = f'Hello {user.username}! You have been logged in'
+            else:
+                message = 'Login failed!'
     return render(request, 'login.html')
 
 
