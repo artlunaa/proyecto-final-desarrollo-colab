@@ -7,19 +7,32 @@
 </head>
 <body>
 
+<nav>
+    <a href="/">
+        <button>Inicio</button>
+    </a>
+</nav>
+
 <form method="POST">
     {% if message %}
         <p>{{ message }}</p>
     {% endif %}
 
     {% csrf_token %}
-    <input type="text" name="nombre" placeholder="Nombre">
-    <input type="text" name="apellido" placeholder="Apellido">
-    <input type="text" name="email" placeholder="Email">
-    <input type="text" name="carrera" placeholder="Carrera">
-    <input type="text" name="semestre" placeholder="Semestre">
+    <input type="hidden" name="id" value="{{ alumno.id|default:'' }}">
+
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ alumno.nombre|default:'' }}">
+    <input type="text" name="apellido" placeholder="Apellido" value="{{ alumno.apellido|default:'' }}">
+    <input type="text" name="email" placeholder="Email" value="{{ alumno.email|default:'' }}">
+    <input type="text" name="carrera" placeholder="Carrera" value="{{ alumno.carrera|default:'' }}">
+    <input type="text" name="semestre" placeholder="Semestre" value="{{ alumno.semestre|default:'' }}">
+
     <button type="submit">
-        Agregar alumno
+        {% if alumno.id %}
+            Editar alumno
+        {% else %}
+            Agregar alumno
+        {% endif %}
     </button>
 </form>
 

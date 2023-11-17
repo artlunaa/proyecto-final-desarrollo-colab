@@ -8,10 +8,17 @@
 <body>
 
     <nav>
-        <a href="/crear_alumno">Crear alumno</a>
+        <a href="/alumnos/crear_alumno">
+            <button>Crear alumno</button>
+        </a>
     </nav>
 
 <h1>Alumnos</h1>
+
+        {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
 <table>
     <thead>
     <tr>
@@ -31,12 +38,19 @@
             <td>{{  alumno.carrera }}</td>
             <td>{{  alumno.semestre }}</td>
             <td>
-                <button>
-                    Eliminar
-                </button>
-                <button>
-                    Actualizar
-                </button>
+                <form method="POST" action="/alumnos/eliminar_alumno">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ alumno.id }}">
+                    <button type="submit" class="contrast">
+                        Eliminar
+                    </button>
+                </form>
+                <form method="GET" action="/alumnos/crear_alumno">
+                    <input type="hidden" name="id" value="{{ alumno.id }}">
+                    <button type="submit">
+                        Actualizar
+                    </button>
+                </form>
             </td>
         </tr>
     {% endfor %}
