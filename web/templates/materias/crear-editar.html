@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+
+<nav>
+    <a href="/materias">
+        <button>Materias</button>
+    </a>
+</nav>
+
+<form method="POST">
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% csrf_token %}
+
+    <input type="hidden" name="id" value="{{ materia.id|default:'' }}">
+
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ materia.nombre|default:'' }}">
+    <input type="text" name="creditos" placeholder="Creditos" value="{{ materia.creditos|default:'' }}">
+    <input type="text" name="profesor" placeholder="Profesor" value="{{ materia.profesor|default:'' }}">
+
+    <button type="submit">
+        {% if materia.id %}
+            Editar Materia
+        {% else %}
+            Agregar Materia
+        {% endif %}
+    </button>
+</form>
+
+</body>
+</html>

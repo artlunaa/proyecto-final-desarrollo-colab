@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+
+<nav>
+    <form method="GET">
+        <button formaction="/panel">
+            Inicio
+        </button>
+        <button formaction="/alumnos">
+            Alumnos
+        </button>
+        <button formaction="/materias/crear_materia">
+            Crear materia
+        </button>
+    </form>
+    <a>Bienvenido Emiliano</a>
+</nav>
+
+<h1>Materias</h1>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Creditos</th>
+        <th>Profesor</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for materia in materias %}
+        <tr>
+            <td>{{ materia.nombre }}</td>
+            <td>{{ materia.creditos }}</td>
+            <td>{{ materia.profesor }}</td>
+            <td>
+                <form method="POST" action="/materias/eliminar_materia">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ materia.id }}">
+                    <button type="submit" class="contrast">
+                        Eliminar
+                    </button>
+                </form>
+                <form method="GET" action="/materias/crear_materia">
+                    <input type="hidden" name="id" value="{{ materia.id }}">
+                    <button type="submit">
+                        Actualizar
+                    </button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
