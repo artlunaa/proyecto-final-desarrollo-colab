@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 </head>
 <body>
+<main class="container">
 
-<nav>
-    <a href="/alumnos">
-        <button>Alumnos</button>
-    </a>
+<nav style="margin-bottom: 40px">
+    <a href="/alumnos" role="button">Alumnos</a>
+    <a>Bienvenido Emiliano</a>
 </nav>
+
 
 <form method="POST">
     {% if message %}
@@ -35,6 +36,6 @@
         {% endif %}
     </button>
 </form>
-
+</main>
 </body>
 </html>

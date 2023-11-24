@@ -6,19 +6,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 </head>
 <body>
+<main class="container">
 
-<nav>
-    <form method="GET">
-        <button formaction="/panel">
-            Inicio
-        </button>
-        <button formaction="/materias">
-            Materias
-        </button>
-        <button formaction="/alumnos/crear_alumno">
-            Crear alumno
-        </button>
-    </form>
+<nav style="margin-bottom: 40px">
+    <a href="/panel" role="button">Inicio</a>
+    <a href="/materias" role="button">Materias</a>
+    <a href="/alumnos/crear_alumno" role="button">Crear Alumno</a>
     <a>Bienvenido Emiliano</a>
 </nav>
 
@@ -65,5 +58,6 @@
     {% endfor %}
     </tbody>
 </table>
+</main>
 </body>
 </html>

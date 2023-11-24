@@ -1,22 +1,25 @@
 from django.shortcuts import render, redirect
 from .models import Alumno, Materia
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login as auth_login, authenticate
 
 
 def login(request):
+    message = None
     if request.method == 'POST':
         username, password = request.POST['username'], request.POST['password']
         if username and password:
             user = authenticate(
+                request,
                 username=username,
                 password=password,
             )
+            print(user)
             if user is not None:
-                login(request, user)
-                message = f'Hello {user.username}! You have been logged in'
+                auth_login(request, user)
+                return redirect('panel')
             else:
-                message = 'Login failed!'
-    return render(request, 'login.html')
+                message = 'El usuario o contraseña son incorrectos'
+    return render(request, 'login.html', {'message': message})
 
 
 def panel(request):
