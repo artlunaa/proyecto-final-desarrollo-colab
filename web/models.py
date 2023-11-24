@@ -8,6 +8,7 @@ class Alumno(models.Model):
     email = models.EmailField()
     carrera = models.CharField(max_length=50)
     semestre = models.IntegerField()
+    materias = models.ManyToManyField('Materia')
 
 
 class Materia(models.Model):

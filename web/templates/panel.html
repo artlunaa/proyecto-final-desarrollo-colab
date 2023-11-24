@@ -7,14 +7,22 @@
 </head>
 <body>
 <main class="container">
-<form method="GET">
-    <button formaction="/alumnos">
-        Alumnos
-    </button>
-    <button formaction="/materias">
-        Materias
-    </button>
-</form>
+    <nav style="margin-bottom: 40px">
+        <a>Bienvenido {{ request.user }}</a>
+    </nav>
+
+    <form method="GET">
+        <button formaction="/alumnos">
+            Alumnos
+        </button>
+        <button formaction="/materias">
+            Materias
+        </button>
+        <button formaction="/inscribir-alumnos-a-materias">
+            Inscribir Alumnos a Materias
+        </button>
+    </form>
+
 </main>
 </body>
 </html>

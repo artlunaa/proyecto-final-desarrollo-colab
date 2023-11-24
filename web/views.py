@@ -93,3 +93,19 @@ def eliminar_materia(request):
         materia = Materia.objects.get(id=id)
         materia.delete()
     return redirect('materia_index')
+
+
+def inscribir_alumno_a_materia(request):
+    message = None
+    if request.method == 'POST':
+        id_alumno = request.POST['id_alumno']
+        id_materia = request.POST['id_materia']
+        alumno = Alumno.objects.get(id=id_alumno)
+        materia = Materia.objects.get(id=id_materia)
+        alumno.materias.add(materia)
+        alumno.save()
+        message = f'Alumno inscrito a "{materia.nombre}" correctamente'
+    alumnos = Alumno.objects.all()
+    materias = Materia.objects.all()
+    return render(request, 'inscribir-alumnos-a-materias.html',
+                  {'messsage': message, 'alumnos': alumnos, 'materias': materias})
