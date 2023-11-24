@@ -16,3 +16,10 @@ class Materia(models.Model):
     creditos = models.IntegerField()
     profesor = models.CharField(max_length=50)
     alumnos = models.ManyToManyField(Alumno)
+
+
+class Calificaciones(models.Model):
+    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
+    materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
+    calificacion = models.FloatField()
+    fecha = models.DateField(auto_now_add=True)

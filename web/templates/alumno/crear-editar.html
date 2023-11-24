@@ -38,6 +38,34 @@
             </tbody>
         </table>
 
+        <h2>Calificaciones</h2>
+        {% if not calificaciones %}
+            <p>Alumno no tiene calificaciones registradas</p>
+        {% endif %}
+
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Materia</th>
+                <th scope="col">Calificacion</th>
+                <th scope="col">Fecha</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for calif in calificaciones %}
+                <tr>
+                    <td>{{ calif.materia.nombre }}</td>
+                    <td>{{ calif.calificacion }}</td>
+                    <td>{{ calif.fecha }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+        <a href="/captura-calificaciones?id={{ alumno.id }}" role="button">Captura de calificaciones para alumno</a>
+
+
         <hr style="margin: 40px">
 
     {% endif %}

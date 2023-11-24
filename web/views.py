@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Alumno, Materia
+from .models import Alumno, Materia, Calificaciones
 from django.contrib.auth import login as auth_login, authenticate
 
 
@@ -50,8 +50,13 @@ def crear_alumno(request):
             message = 'Alumno creado correctamente'
         return render(request, 'alumno/crear-editar.html', {'message': message})
 
-    alumno = Alumno.objects.get(id=request.GET.get('id', None)) if request.GET.get('id', None) else None
-    return render(request, 'alumno/crear-editar.html', {'alumno': alumno})
+    id = request.GET.get('id', None)
+    if id:
+        alumno = Alumno.objects.get(id=id)
+        calificaciones = Calificaciones.objects.filter(alumno_id=id)
+    else:
+        calificaciones = alumno = None
+    return render(request, 'alumno/crear-editar.html', {'alumno': alumno, 'calificaciones': calificaciones})
 
 
 def eliminar_alumo(request):
@@ -109,3 +114,20 @@ def inscribir_alumno_a_materia(request):
     materias = Materia.objects.all()
     return render(request, 'inscribir-alumnos-a-materias.html',
                   {'messsage': message, 'alumnos': alumnos, 'materias': materias})
+
+
+def captura_calificaciones(request):
+    message = None
+    id = request.GET.get('id', None)
+    alumno = Alumno.objects.get(id=id)
+    materias = alumno.materias.all()
+    # calificaciones = alumno.calificaciones_set.all().prefetch_related('materia')
+    if request.method == 'POST':
+        id = request.POST['id_alumno']
+        id_materia = request.POST['id_materia']
+        calificacion = request.POST['calificacion']
+        Calificaciones.objects.create(alumno_id=id, materia_id=id_materia, calificacion=calificacion)
+        message = 'Calificacion registrada correctamente'
+
+    return render(request, 'captura-calificaciones.html',
+                  {'alumno': alumno, 'materias': materias, 'message': message})
