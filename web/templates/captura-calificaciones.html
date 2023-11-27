@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+<main class="container">
+    <form method="POST">
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        <a href="/alumnos/crear_alumno?id={{ alumno.id }}" role="button">Regresar al alumno: {{ alumno.nombre }}</a>
+
+        {% csrf_token %}
+
+        <label for="alumnoNombre">
+            Alumno
+            <input type="text" name="alumnoNombre" id="alumnoNombre" value="{{ alumno.nombre }} {{ alumno.apellido }}"
+                   disabled>
+        </label>
+
+        <input type="hidden" value="{{ alumno.id }}" name="id_alumno">
+
+        <label for="materia">
+            Materia
+            <select id="materia" name="id_materia">
+                {% for materia in materias %}
+                    <option value="{{ materia.id }}">{{ materia.nombre }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label for="calificacion">
+            Calificacion
+            <input type="text" name="calificacion" id="calificacion">
+        </label>
+
+        <button type="submit">
+            Agregar calificacion
+        </button>
+
+    </form>
+</main>
+
+</body>
+</html>

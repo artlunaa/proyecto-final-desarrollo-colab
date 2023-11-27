@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+<main class="container">
+
+<nav style="margin-bottom: 40px">
+    <a href="/panel" role="button">Inicio</a>
+    <a href="/materias" role="button">Materias</a>
+    <a href="/alumnos/crear_alumno" role="button">Crear Alumno</a>
+    <a>Bienvenido {{ request.user }}</a>
+</nav>
+
+<h1>Alumnos</h1>
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}
+
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Carrera</th>
+        <th>Semestre</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for alumno in alumnos %}
+        <tr>
+            <td>{{ alumno.nombre }}</td>
+            <td>{{ alumno.apellido }}</td>
+            <td>{{ alumno.email }}}</td>
+            <td>{{ alumno.carrera }}</td>
+            <td>{{ alumno.semestre }}</td>
+            <td>
+                <form method="POST" action="/alumnos/eliminar_alumno">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ alumno.id }}">
+                    <button type="submit" class="contrast">
+                        Eliminar
+                    </button>
+                </form>
+                <form method="GET" action="/alumnos/crear_alumno">
+                    <input type="hidden" name="id" value="{{ alumno.id }}">
+                    <button type="submit">
+                        Actualizar
+                    </button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</main>
+</body>
+</html>
